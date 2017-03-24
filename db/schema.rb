@@ -10,7 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324204230) do
+ActiveRecord::Schema.define(version: 20170324214912) do
+
+  create_table "houses", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.date     "rent_start"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.decimal  "balance"
+    t.decimal  "rent"
+    t.boolean  "rent_pays_to"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "recurrings", force: :cascade do |t|
+    t.string   "name"
+    t.date     "starts_on"
+    t.decimal  "amount"
+    t.string   "frequency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shares", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "transaction_id"
+    t.decimal  "amount"
+    t.boolean  "owner"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "amount"
+    t.text     "description"
+    t.boolean  "shared"
+    t.date     "purchased"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -27,6 +71,14 @@ ActiveRecord::Schema.define(version: 20170324204230) do
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "will_shares", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.boolean  "is_payer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

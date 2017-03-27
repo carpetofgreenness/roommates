@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(version: 20170324214912) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.decimal  "balance"
     t.decimal  "rent"
     t.boolean  "rent_pays_to"
+    t.integer  "user_id"
+    t.integer  "house_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170324214912) do
     t.text     "description"
     t.boolean  "shared"
     t.date     "purchased"
+    t.integer  "house_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

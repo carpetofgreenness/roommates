@@ -3,7 +3,7 @@ class CreateShares < ActiveRecord::Migration[5.0]
     create_table :shares do |t|
     	t.integer :user_id
     	t.integer :transaction_id
-    	t.decimal :amount
+    	# t.decimal :amount
     	t.boolean :owner
 
       t.timestamps

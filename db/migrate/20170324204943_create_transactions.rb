@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
     	t.text :description
     	t.boolean :shared
     	t.date :purchased
+    	t.integer :house_id
 
       t.timestamps
     end

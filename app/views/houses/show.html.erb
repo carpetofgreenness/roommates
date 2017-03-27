@@ -1,7 +1,14 @@
-<h1>
-	<%=@house.name%>
-</h1>
-<p>
-	<%=@house.description%>
-</p>
-<%=%>
+<% if @permission %>
+	<h1>
+		<%=@house.name%>
+	</h1>
+	<p>
+		<%=@house.description%>
+	</p>
+	<h2>Members</h2>
+	<% @members.each do |member| %>
+		<p>
+			<%=member.email%>	
+		</p>
+	<% end %>
+<% end %>

@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20170324214912) do
   create_table "shares", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "transaction_id"
-    t.decimal  "amount"
     t.boolean  "owner"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

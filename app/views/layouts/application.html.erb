@@ -9,9 +9,18 @@
   </head>
 
   <body>
-  	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
 
-    <%= yield %>
+    <%= render "layouts/nav" %>
+  
+    <div class="container container-full">
+  
+      <p class="notice"><%= @notice %></p>
+      <% if @alert %>
+        <p class="alert alert-danger"><%= @alert %></p>
+      <% end %>
+      <%= yield %>
+  
+    </div>
+  
   </body>
 </html>

@@ -1,0 +1,46 @@
+<% if @permission %>
+	<div class="well well-lg">
+		<div class="row">
+			<div class="col-md-6">
+				<h1>
+					<%=@house.name%>
+					<br>
+					<small>
+						Member since <%=@membership.created_at.strftime("%B %d, %Y") %>
+					</small>
+				</h1>
+			</div>
+			<div class="col-md-6">
+				<p>
+					<%=@house.description%>
+				</p>
+				<h2>Members</h2>
+				<%= @members.map(&:email).join(', ') %>
+			</div>
+		</div>		
+	</div>
+
+	<h2>Transactions</h2>
+	<ul class="list-group row">
+		<div class="col-md-12">
+			<% @transactions.each do |transaction| %>
+				<a class="list-group-item" id=<%=transaction.id%>>
+					<span class="badge">edit</span>
+					<div class="row">
+						<div class="col-sm-8 row">
+							<div class="col-xs-7">
+								<%=transaction.name%>
+							</div>
+							<div class="col-xs-4">
+								<%=transaction.find_share_of(current_user.id).amount%>
+							</div>
+							
+						</div>
+						
+					</div>
+				</a>
+			<% end %>
+			
+		</div>
+	</ul>
+<% end %>

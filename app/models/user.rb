@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :shares
-  has_many :transactions, through: :shares
+  has_many :items, through: :shares
 
   has_many :memberships
   has_many :houses, through: :memberships

@@ -1,4 +1,6 @@
-class Transaction < ApplicationRecord
+class Item < ApplicationRecord
+	cattr_accessor :current_user
+
 	has_many :shares
 	has_many :users, through: :shares
 	belongs_to :house

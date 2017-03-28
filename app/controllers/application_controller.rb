@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  before_filter :set_current_user
+
+  def set_current_user
+    Item.current_user = current_user
+  end
+
   protect_from_forgery with: :exception
 
 

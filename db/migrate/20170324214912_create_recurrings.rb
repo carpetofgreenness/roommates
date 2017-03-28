@@ -5,6 +5,7 @@ class CreateRecurrings < ActiveRecord::Migration[5.0]
     	t.date :starts_on
     	t.decimal :amount
     	t.string :frequency
+    	t.integer :house_id
 
       t.timestamps
     end

@@ -28,11 +28,11 @@ User.all.each do |user|
 		"purchased":Faker::Time.between(5.days.ago, Date.today, :all),
 		"house_id":1
 	)
-	u.each do |sharer|
+	User.all.each do |sharer|
 		t.shares.create(
 			"user_id":sharer.id,
 			"owner":false
 		)
 	end
-	user.shares.where("item_id=?",t.id).first.update_attribute("owner",false)
+	user.shares.where("item_id=?",t.id).first.update_attribute("owner",true)
 end

@@ -13,6 +13,6 @@
 	<% end %>
 	<h2>Transactions</h2>
 	<% @transactions.each do |transaction| %>
-		<p><%=transaction.name%> <%=transaction.current_user_share.amount%></p>
+		<p><%=transaction.name%> <%=transaction.find_share_of(current_user.id).amount%></p>
 	<% end %>
 <% end %>

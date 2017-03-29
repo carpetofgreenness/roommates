@@ -24,21 +24,32 @@
 	<ul class="list-group row">
 		<div class="col-md-12">
 			<% @transactions.each do |transaction| %>
-				<a class="list-group-item" id=<%=transaction.id%>>
+				<a class="list-group-item row" id=<%=transaction.id%>>
 					<span class="badge">edit</span>
-					<div class="row">
-						<div class="col-sm-8">
-							<div class="row">
-								<div class="col-md-8 col-sm-9 col-xs-6">
-									<%=transaction.name%>
-								</div>
-								<div class="col-md-4 col-sm-3 col-xs-4">
-									<%=transaction.find_share_of(current_user.id).amount%>
-								</div>
-							</div>
-							
+					<div class="col-sm-8 row" id=<%=transaction.id%>>
+						<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
+							<%=transaction.name%>
 						</div>
-						
+						<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
+							<%=transaction.find_share_of(current_user.id).amount%>
+						</div>
+					</div>
+					<div class="item-info" id=<%="item-info#{transaction.id}"%>>
+						<hr>
+						<div class="col-xs-8 row" id=<%=transaction.id%>>
+							<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
+								<p>Purchased by</p>
+								<p><%=transaction.owner.email%></p>
+							</div>
+							<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
+								<p>Total:</p>
+								<p><%=transaction.amount%></p>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<p>Split with <%=transaction.shares.count%> people:</p>
+							<p><%=transaction.split_with%></p>
+						</div>
 					</div>
 				</a>
 			<% end %>

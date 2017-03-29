@@ -27,12 +27,14 @@
 				<a class="list-group-item" id=<%=transaction.id%>>
 					<span class="badge">edit</span>
 					<div class="row">
-						<div class="col-sm-8 row">
-							<div class="col-xs-7">
-								<%=transaction.name%>
-							</div>
-							<div class="col-xs-4">
-								<%=transaction.find_share_of(current_user.id).amount%>
+						<div class="col-sm-8">
+							<div class="row">
+								<div class="col-md-8 col-sm-9 col-xs-6">
+									<%=transaction.name%>
+								</div>
+								<div class="col-md-4 col-sm-3 col-xs-4">
+									<%=transaction.find_share_of(current_user.id).amount%>
+								</div>
 							</div>
 							
 						</div>

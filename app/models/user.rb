@@ -9,4 +9,18 @@ class User < ApplicationRecord
 
   has_many :memberships
   has_many :houses, through: :memberships
+
+  def balance(house_id)
+  	house = House.find(house_id)
+  	items = house.items
+  	balance = 0
+  	items.each do |item|
+  		share = item.find_share_of(self.id)
+  		balance += share.amount
+  	end
+
+  	balance
+
+  end
+
 end

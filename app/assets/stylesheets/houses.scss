@@ -1,3 +1,13 @@
 // Place all the styles related to the houses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+
+.item-info {
+	display: none;
+}
+
+a.list-group-item:nth-child(odd) {
+	background: $gray-lighter;
+}

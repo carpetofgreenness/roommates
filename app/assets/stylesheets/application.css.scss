@@ -16,6 +16,10 @@
 
  @import 'bootstrap';
  @import 'bootstrap-sprockets';
+ // @import "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css";
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap";
+// @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
+// @import "bootstrap-sass/assets/stylesheets/bootstrap";
 
 .container-full {
 	padding-top: 60px;

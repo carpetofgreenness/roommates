@@ -12,7 +12,7 @@ a.list-group-item:nth-child(odd) {
 	background: $gray-lighter;
 }
 
-div.plus-sign {
+button.plus-sign {
 	color: red;
 	position: fixed;
 	right: 30px;
@@ -24,10 +24,14 @@ div.plus-sign {
 	width: 51px;
 	border-radius: 52px;
 	padding: 0;
+
+	&:hover {
+		text-shadow: 0 0 8px $gray-lighter;
+	}
 }
 
 span.glyphicon-plus-sign {
 	position: relative;
-	top: -5px;
-	left: -2px;
+	top: -6px;
+	left: -5px;
 }

@@ -20,9 +20,9 @@ button.plus-sign {
 	z-index: 100;
 	font-size: 4em;	
 	background-color: white;
-	height: 52px;
-	width: 51px;
-	border-radius: 52px;
+	height: 57px;
+	width: 57px;
+	border-radius: 55px;
 	padding: 0;
 
 	&:hover {
@@ -32,6 +32,6 @@ button.plus-sign {
 
 span.glyphicon-plus-sign {
 	position: relative;
-	top: -6px;
-	left: -5px;
+	top: -4px;
+	left: -1px;
 }

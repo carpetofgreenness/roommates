@@ -29,7 +29,7 @@
 		<ul class="list-group row">
 			<div class="col-md-12">
 				<% @transactions.each do |transaction| %>
-					<a class="list-group-item row" id=<%=transaction.id%>>
+					<a class="list-group-item row item-area" id=<%=transaction.id%>>
 						<span class="badge">edit</span>
 						<div class="col-sm-8 row" id=<%=transaction.id%>>
 							<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
@@ -39,21 +39,21 @@
 								<%=transaction.find_share_of(current_user.id).amount%>
 							</div>
 						</div>
-						<div class="item-info" id=<%="item-info#{transaction.id}"%>>
+						<div class="item-info" id=<%=transaction.id%>>
 							<br><hr>
 							<div class="col-xs-8 row" id=<%=transaction.id%>>
 								<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
-									<p>Purchased by</p>
-									<p><%=transaction.owner.email%></p>
+									<p id=<%=transaction.id%>>Purchased by</p>
+									<p id=<%=transaction.id%>><%=transaction.owner.email%></p>
 								</div>
 								<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
-									<p>Total:</p>
-									<p><%=transaction.amount%></p>
+									<p id=<%=transaction.id%>>Total:</p>
+									<p id=<%=transaction.id%>><%=transaction.amount%></p>
 								</div>
 							</div>
-							<div class="col-xs-4">
-								<p>Split with <%=transaction.shares.count%> people:</p>
-								<p><%=transaction.split_with%></p>
+							<div class="col-xs-4" id=<%=transaction.id%>>
+								<p id=<%=transaction.id%>>Split with <%=transaction.shares.count%> people:</p>
+								<p id=<%=transaction.id%>><%=transaction.split_with%></p>
 							</div>
 						</div>
 					</a>
@@ -63,11 +63,61 @@
 		</ul>
 		
 	<!-- </div> -->
-	<button class="plus-sign">
+	<button class="plus-sign" data-toggle="modal" data-target="#new-item">
 		<span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
 			<span class="inner"></span>
 		</span>
 		<span class="sr-only">Add Transaction</span>
 	</button>
+
+	<div class="modal fade" id="new-item" tabindex="-1" role="dialog" aria-labelledby="new-itemLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">New Transaction</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        
+		      <%= form_for @item, :html => { :id => "new_item", :class => "form-group"} do |f| %>
+		      	<div class="form-group">
+					<label for="name" class="form-control-label">Name</label>
+					<%= f.text_field 'name', class: "form-control", placeholder: "Name of transaction" %>
+		      	</div>
+		      	<div class="form-group">
+					<label for="amount" class="form-control-label">Amount</label>
+					<%= f.number_field 'amount', class: "form-control", :onchange => "setTwoNumberDecimal(this)", :step => 0.01, placeholder: "0.00" %>
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="purchased" class="form-control-label">Date</label>
+		      		<%= f.date_field 'purchased', class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
+		      	</div>
+		      	<div class="form-group">
+					<label for="description" class="form-control-label">Description</label>
+					<%= f.text_area 'description', class: "form-control", placeholder: "Description of transaction" %>
+		      	</div>
+		      	<div class="form-group">
+		      		<label class="form-control-label">Share cost with</label>
+		      		<% current_user.roommates(@house.id).each do |roommate| %>
+		      			<br>
+		      			<label for=<%=roommate.email%> class="form-check-label">
+		      				<%= check_box_tag 'sharers[]', roommate.id, true %>
+		      				<%=roommate.email%>
+		      			</label>
+		      		<% end %>
+		      	</div>
+		      	<%= f.hidden_field 'shared', value: true %>
+		      	<%= f.hidden_field 'house_id', value: @house.id %>
+
+	      </div>
+	      <div class="modal-footer">
+	      		<%= f.submit 'Create Transaction', class: "btn btn-primary" %>
+	        <% end %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 <% end %>

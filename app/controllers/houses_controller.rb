@@ -8,6 +8,7 @@ class HousesController < ApplicationController
 			@members = @house.users
 			@transactions = @house.items
 			@membership = @house.memberships.where("user_id=?",current_user.id).first
+			@item = Item.new
 		else
 			@alert = "Sorry, you must be a member of this household to view this page."
 			@permission = false

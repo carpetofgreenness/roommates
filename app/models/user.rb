@@ -23,4 +23,9 @@ class User < ApplicationRecord
 
   end
 
+  def roommates(house_id)
+    house = House.find(house_id)
+    roommates = house.users - [self]
+  end
+
 end

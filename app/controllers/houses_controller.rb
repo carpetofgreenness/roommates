@@ -13,4 +13,5 @@ class HousesController < ApplicationController
 			@permission = false
 		end
 	end
+
 end

@@ -7,4 +7,15 @@ class SharesController < ApplicationController
 		share.destroy
 		redirect_to house
 	end
+
+	def create
+		share = Share.create(share_params)
+		redirect_to share.item.house
+	end
+
+	private
+
+	def share_params
+		params.require(:share).permit(:user_id, :item_id, :owner)
+	end
 end

@@ -45,6 +45,16 @@
 									</button>
 									
 								</form>
+							<% else %>
+								<%= form_for Share.new do |f|%>
+									<button id="share" type="submit">
+												<span class="glyphicon glyphicon-ok" id=<%=transaction.id%>></span>
+												<span class="sr-only">Unshare Transaction <%=transaction.name%></span>
+										
+									</button>
+									<%= f.hidden_field 'user_id', value: current_user.id %>
+									<%= f.hidden_field 'item_id', value: transaction.id %>
+								<% end %>
 							<% end %>
 						</span>
 						<div class="col-sm-8 row" id=<%=transaction.id%>>

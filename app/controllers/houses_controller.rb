@@ -15,4 +15,22 @@ class HousesController < ApplicationController
 		end
 	end
 
+	def create
+		@house = current_user.houses.create(house_params)
+
+		if @house.save
+			flash[:notice] = "Your house was created successfully"
+			redirect_to @house
+		else
+			flash[:alert] = "There was a problem saving your house."
+			redirect_to @house
+		end
+	end
+
+	private
+
+	def house_params
+		params.require(:house).permit(:name, :description, :rent_start)
+	end
+
 end

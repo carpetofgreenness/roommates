@@ -28,12 +28,20 @@ button.plus-sign {
 	&:hover {
 		text-shadow: 0 0 8px $gray-lighter;
 	}
+
+	&:focus {
+	    outline: none;
+	}
 }
 
 span.glyphicon-plus-sign {
 	position: relative;
 	top: -4px;
 	left: -1px;
+
+	&:focus {
+	    outline: none;
+	}
 }
 
 button#edit, button#unshare, button#share, button#delete-item {

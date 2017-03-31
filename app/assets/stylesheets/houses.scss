@@ -40,3 +40,19 @@ button#edit, button#unshare, button#share, button#delete-item {
 	background-color: transparent;
 	border: none;
 }
+
+.badge-edit {
+	background-color: $brand-info !important;
+}
+
+.badge-unshare {
+	background-color: $brand-warning !important;
+}
+
+.badge-share {
+	background-color: $brand-success !important;
+}
+
+.badge-trash {
+	background-color: $brand-danger !important;
+}

@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
 			redirect_to @item.house
 		else
 			flash[:alert] = "There was a problem saving your transaction."
-			redirect_to "/list"
+			redirect_to @item.house
 		end
 	end
 

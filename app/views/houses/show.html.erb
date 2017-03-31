@@ -36,11 +36,15 @@
 									<span class="glyphicon glyphicon-pencil" id=<%=transaction.id%>></span>
 									<span class="sr-only">Edit Transaction <%=transaction.name%></span>
 								</button>
-							<% else %>
-								<button id="edit" data-toggle="modal" data-target="#edit-item-<%=transaction.id%>">
-									<span class="glyphicon glyphicon-remove" id=<%=transaction.id%>></span>
-									<span class="sr-only">Edit Transaction <%=transaction.name%></span>
-								</button>
+							<% elsif transaction.find_share_of(current_user.id) %>
+								<form action="/share/<%=transaction.find_share_of(current_user.id)%>" method="delete">
+									<button id="unshare" type="submit">
+												<span class="glyphicon glyphicon-remove" id=<%=transaction.id%>></span>
+												<span class="sr-only">Unshare Transaction <%=transaction.name%></span>
+										
+									</button>
+									
+								</form>
 							<% end %>
 						</span>
 						<div class="col-sm-8 row" id=<%=transaction.id%>>

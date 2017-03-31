@@ -13,13 +13,15 @@ class Item < ApplicationRecord
 	end
 
 	def split_with(user_email)
-		p "the email is"
-		p user_email
 		if self.shares.count > 1
 			p self.shares.count
 			everyone = self.shares.map(&:user).map(&:email) - [user_email]
 			everyone.join(', ')
 		end
+	end
+
+	def split_with_ids
+		self.shares.map(&:user).map(&:id)
 	end
 
 end

@@ -16,7 +16,7 @@ class User < ApplicationRecord
   	balance = 0
   	items.each do |item|
   		share = item.find_share_of(self.id)
-  		balance += share.amount
+  		balance += share.amount if share
   	end
 
   	balance
@@ -26,6 +26,10 @@ class User < ApplicationRecord
   def roommates(house_id)
     house = House.find(house_id)
     roommates = house.users - [self]
+  end
+
+  def owns(item_id)
+    Item.find(item_id).shares.where("user_id=?",self.id).first.owner
   end
 
 end

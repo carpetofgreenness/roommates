@@ -5,7 +5,6 @@ $("document").ready(function(){
 		var x = event.target.id.toString()
 		// console.log(event.target.nodeName)
 		// console.log(x)
-		if (event.target.class )
 		$("#"+x+".item-info").toggle();
 	})
 

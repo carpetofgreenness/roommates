@@ -29,7 +29,12 @@ class User < ApplicationRecord
   end
 
   def owns(item_id)
-    Item.find(item_id).shares.where("user_id=?",self.id).first.owner
+    if Item.find(item_id).shares.where("user_id=?",self.id).first
+      owns = Item.find(item_id).shares.where("user_id=?",self.id).first.owner
+    else
+      owns = false
+    end
+    owns
   end
 
 end

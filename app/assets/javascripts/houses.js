@@ -1,7 +1,7 @@
 $("document").ready(function(){
 
 	// when user clicks an option, add it to the form and submit
-	$(".item-area").children(":not('.badge')").click(function(event){
+	$(".item-area").click(function(event){
 		
 		var x = event.target.id.toString()
 		// console.log(event.target.nodeName)
@@ -9,8 +9,16 @@ $("document").ready(function(){
 		$("#"+x+".item-info").toggle();
 	})
 
-	$(".glyphicon-pencil").click(function(event){
-		console.log(event.target.nodeName)
+	// $(".item-area").on('click', ':not(.badge)', function (event) {
+	//      event.stopPropagation()
+	// 	var x = event.target.id.toString()
+	// 	// console.log(event.target.nodeName)
+	// 	// console.log(x)
+	// 	$("#"+x+".item-info").toggle();
+	// });
+
+	$(".badge").click(function(event){
+		event.stopPropagation();
 	})
 })
 function setTwoNumberDecimal(el) {

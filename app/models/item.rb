@@ -24,4 +24,8 @@ class Item < ApplicationRecord
 		self.shares.map(&:user).map(&:id)
 	end
 
+	def split_with?(user_id)
+		self.shares.map(&:user).map(&:id).include?(user_id)
+	end
+
 end

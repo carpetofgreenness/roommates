@@ -41,6 +41,13 @@ class ItemsController < ApplicationController
 		end
 	end
 
+	def show
+		@item = Item.find(params[:id])
+		house = @item.house
+		@item.destroy
+		redirect_to house
+	end
+
 	private
 
 	def item_params

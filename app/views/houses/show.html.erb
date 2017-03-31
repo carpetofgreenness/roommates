@@ -30,7 +30,11 @@
 			<div class="col-md-12">
 				<% @transactions.each do |transaction| %>
 					<a class="list-group-item row item-area" id=<%=transaction.id%>>
-						<span class="badge">edit</span>
+						<span class="badge">
+							<button id="edit">
+								<span class="glyphicon glyphicon-pencil" id=<%=transaction.id%>></span>
+							</button>
+						</span>
 						<div class="col-sm-8 row" id=<%=transaction.id%>>
 							<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
 								<%=transaction.name%>
@@ -52,8 +56,8 @@
 								</div>
 							</div>
 							<div class="col-xs-4" id=<%=transaction.id%>>
-								<p id=<%=transaction.id%>>Split with <%=transaction.shares.count%> people:</p>
-								<p id=<%=transaction.id%>><%=transaction.split_with%></p>
+								<p id=<%=transaction.id%>>Split with <%=transaction.shares.count-1%> other people</p>
+								<p id=<%=transaction.id%>><%=transaction.split_with(current_user.email)%></p>
 							</div>
 						</div>
 					</a>

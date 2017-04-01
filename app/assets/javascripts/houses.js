@@ -1,4 +1,4 @@
-document.addEventListener("turbolinks:load", function() {
+$("document").ready(function(){
 	// when user clicks an option, add it to the form and submit
 	$(".item-area").click(function(event){
 		

@@ -1,5 +1,4 @@
-$("document").ready(function(){
-
+document.addEventListener("turbolinks:load", function() {
 	// when user clicks an option, add it to the form and submit
 	$(".item-area").click(function(event){
 		
@@ -21,6 +20,10 @@ $("document").ready(function(){
 		event.stopPropagation();
 	})
 })
+
+// $("document").on('turbolinks:load',function(){
+
+// })
 function setTwoNumberDecimal(el) {
 	el.value = parseFloat(el.value).toFixed(2);
 };

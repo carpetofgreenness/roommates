@@ -19,6 +19,9 @@ $("document").ready(function(){
 	$(".badge").click(function(event){
 		event.stopPropagation();
 	})
+	$("button").click(function(event){
+		event.stopPropagation();
+	})
 })
 
 // $("document").on('turbolinks:load',function(){

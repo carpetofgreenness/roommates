@@ -6,7 +6,7 @@ class House < ApplicationRecord
 	has_many :items, dependent: :destroy
 	has_many :recurring, dependent: :destroy
 
-	has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }
+	has_attached_file :photo, styles: { medium: "300x300#", thumb: "100x100#" }
   	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
 
 	def is_member?(user_id_num)

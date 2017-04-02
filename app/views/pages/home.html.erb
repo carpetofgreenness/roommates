@@ -1,35 +1,52 @@
-<div class="well well-lg">
-	<div class="row">
-		<div class="col-sm-6">
-			<%= image_tag(current_user.avatar.url(:medium), class: "img-circle", "aria-hidden": "true")%>	
-		</div>
-		<div class="col-sm-6">
-			<h1><%=current_user.first_name%> <%=current_user.last_name%></h1>
-			<p>Email: <%=current_user.email%></p>
-			<p>
-				<span class="glyphicon glyphicon-pencil"></span>
-			</p>
+<div class="container">
+	
+	<div class="well well-lg">
+		<div class="row">
+			<div class="col-sm-6">
+				<%= image_tag(current_user.avatar.url(:medium), class: "img-circle", "aria-hidden": "true")%>	
+			</div>
+			<div class="col-sm-6">
+				<h1><%=current_user.first_name%> <%=current_user.last_name%></h1>
+				<p>Email: <%=current_user.email%></p>
+				<p>
+					<span class="glyphicon glyphicon-pencil"></span>
+				</p>
+			</div>
 		</div>
 	</div>
+
+	<h1>House Memberships</h1>
+
+	<div class="container">
+		
+
+		<div class="row">
+			<% @houses.each do |house| %>
+				<%= link_to house do %></p>
+					<div class="col-md-4 well">
+						<h2><%=house.name%></h2>
+						<div class="row">
+							<div class="col-md-5">
+								<% if house.photo_file_name %>
+									<%= image_tag(house.photo.url(:thumb), class: "img-circle", "aria-hidden": "true") %>
+								<% end %>
+							</div>
+							<div class="col-md-7">
+								<h3>Balance: <small>$<%=current_user.balance(house.id)%></small></h3>
+								
+							</div>
+							
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+			
+		</div>
+
+		<button class="btn btn-default" data-toggle="modal" data-target="#new-house">New House</button>
+		<button class="btn btn-default" data-toggle="modal" data-target="#join-house">Join Existing House</button>
+	</div>
+
+	<%= render "new_house_modal" %>
+	<%= render "join_house_modal" %>
 </div>
-
-<h1><House Memberships</h1>
-
-<div class="row">
-	<% @houses.each do |house| %>
-		<%= link_to house do %></p>
-			<div class="col-md-4">
-				<h2><%=house.name%></h2>
-				<%= image_tag(house.photo.url(:medium)) %>
-			</div>
-		<% end %>
-	<% end %>
-	
-</div>
-
-
-<button class="btn btn-default" data-toggle="modal" data-target="#new-house">New House</button>
-<button class="btn btn-default" data-toggle="modal" data-target="#join-house">Join Existing House</button>
-
-<%= render "new_house_modal" %>
-<%= render "join_house_modal" %>

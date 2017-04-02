@@ -1,4 +1,4 @@
-$("document").ready(function(){
+document.addEventListener("turbolinks:load", function() {
 	// when user clicks an option, add it to the form and submit
 	$(".item-area").click(function(event){
 		
@@ -16,10 +16,13 @@ $("document").ready(function(){
 	// 	$("#"+x+".item-info").toggle();
 	// });
 
-	$(".badge").click(function(event){
+	$("#delete-item").click(function(event){
 		event.stopPropagation();
 	})
-	$("button").click(function(event){
+	$("#unshare").click(function(event){
+		event.stopPropagation();
+	})
+	$("#share").click(function(event){
 		event.stopPropagation();
 	})
 })

@@ -22,6 +22,12 @@
 		      		<label for="rent_start" class="form-control-label">Rent Start Date</label>
 		      		<%= f.date_field 'rent_start', class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
 		      	</div>
+
+				<div class="form-group">
+				    <%= f.label :photo, class: "form-control-label" %><br />
+				    <%= f.file_field :photo, class: "form-control" %>
+		      	</div>
+
 		      	<div class="form-group">
 					<label for="join_key" class="form-control-label">Join Key <small>password for other users to join your house</small></label>
 					<%= f.text_field 'join_key', class: "form-control", placeholder: "Join key" %>

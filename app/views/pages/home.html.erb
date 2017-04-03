@@ -8,9 +8,11 @@
 			<div class="col-sm-6">
 				<h1><%=current_user.first_name%> <%=current_user.last_name%></h1>
 				<p>Email: <%=current_user.email%></p>
-				<p>
+				<!-- <button id="edit-user" data-toggle="modal" data-target="#edit-user" class="btn btn-default"> -->
+				<button class="btn btn-default" data-toggle="modal" data-target="#edit-user">
 					<span class="glyphicon glyphicon-pencil"></span>
-				</p>
+				</button>
+
 			</div>
 		</div>
 	</div>
@@ -18,7 +20,6 @@
 	<h1>House Memberships</h1>
 
 	<div class="container">
-		
 
 		<div class="row">
 			<% @houses.each do |house| %>
@@ -32,7 +33,7 @@
 								<% end %>
 							</div>
 							<div class="col-md-7">
-								<h3>Balance: <small>$<%=current_user.balance(house.id)%></small></h3>
+								<h3>Balance: <small>$<%=current_user.balance(house.id).round(2)%></small></h3>
 								
 							</div>
 							
@@ -49,4 +50,5 @@
 
 	<%= render "new_house_modal" %>
 	<%= render "join_house_modal" %>
+	<%= render "edit_user_modal" %>
 </div>

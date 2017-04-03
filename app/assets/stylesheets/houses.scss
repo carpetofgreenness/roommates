@@ -11,3 +11,56 @@
 a.list-group-item:nth-child(odd) {
 	background: $gray-lighter;
 }
+
+button.plus-sign {
+	color: red;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	z-index: 100;
+	font-size: 4em;	
+	background-color: white;
+	height: 57px;
+	width: 57px;
+	border-radius: 55px;
+	padding: 0;
+
+	&:hover {
+		text-shadow: 0 0 8px $gray-lighter;
+	}
+
+	&:focus {
+	    outline: none;
+	}
+}
+
+span.glyphicon-plus-sign {
+	position: relative;
+	top: -4px;
+	left: -1px;
+
+	&:focus {
+	    outline: none;
+	}
+}
+
+button#edit, button#unshare, button#share, button#delete-item {
+	background-color: transparent;
+	border: none;
+}
+
+.badge-edit {
+	background-color: $brand-info !important;
+}
+
+.badge-unshare {
+	background-color: $brand-warning !important;
+}
+
+.badge-share {
+	background-color: $brand-success !important;
+}
+
+.badge-trash {
+	background-color: $brand-danger !important;
+}

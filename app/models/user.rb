@@ -10,17 +10,34 @@ class User < ApplicationRecord
   has_many :memberships
   has_many :houses, through: :memberships
 
+  has_attached_file :avatar, styles: { medium: "300x300#", thumb: "100x100#" }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   def balance(house_id)
   	house = House.find(house_id)
   	items = house.items
   	balance = 0
   	items.each do |item|
   		share = item.find_share_of(self.id)
-  		balance += share.amount
+  		balance += share.amount if share
   	end
 
   	balance
 
+  end
+
+  def roommates(house_id)
+    house = House.find(house_id)
+    roommates = house.users - [self]
+  end
+
+  def owns(item_id)
+    if Item.find(item_id).shares.where("user_id=?",self.id).first
+      owns = Item.find(item_id).shares.where("user_id=?",self.id).first.owner
+    else
+      owns = false
+    end
+    owns
   end
 
 end

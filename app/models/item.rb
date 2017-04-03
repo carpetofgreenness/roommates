@@ -12,8 +12,20 @@ class Item < ApplicationRecord
 		self.shares.where("owner=?",true).first.user
 	end
 
-	def split_with
-		self.shares.map(&:user).map(&:email).join(', ')
+	def split_with(user_email)
+		if self.shares.count > 1
+			p self.shares.count
+			everyone = self.shares.map(&:user).map(&:email) - [user_email]
+			everyone.join(', ')
+		end
+	end
+
+	def split_with_ids
+		self.shares.map(&:user).map(&:id)
+	end
+
+	def split_with?(user_id)
+		self.shares.map(&:user).map(&:id).include?(user_id)
 	end
 
 end

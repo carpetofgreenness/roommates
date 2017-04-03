@@ -3,5 +3,7 @@ class PagesController < ApplicationController
 
   def home
  	@houses = current_user.houses
+ 	@house = House.new
+ 	@membership = Membership.new
   end
 end

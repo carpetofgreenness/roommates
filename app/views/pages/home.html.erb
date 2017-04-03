@@ -1,4 +1,69 @@
-<h1><%=current_user.email%></h1>
-<% @houses.each do |house| %>
-	<p><%= link_to house.name, house %></p>
-<% end %>
+<div class="container">
+	
+	<div class="well well-lg">
+		<div class="row">
+			<div class="col-sm-6">
+				<%= image_tag(current_user.avatar.url(:medium), class: "img-circle", "aria-hidden": "true")%>	
+			</div>
+			<div class="col-sm-6">
+				<h1><%=current_user.first_name%> <%=current_user.last_name%></h1>
+				<p>Email: <%=current_user.email%></p>
+				<!-- <button id="edit-user" data-toggle="modal" data-target="#edit-user" class="btn btn-default"> -->
+				<button class="btn btn-default" data-toggle="modal" data-target="#edit-user">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</button>
+				<%= button_to "Delete My Account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default" %>
+
+			</div>
+		</div>
+	</div>
+
+	<h1>
+		House Memberships
+		<button class="btn btn-default" data-toggle="modal" data-target="#new-house">New House</button>
+		<button class="btn btn-default" data-toggle="modal" data-target="#join-house">Join Existing House</button>
+	</h1>
+
+	<div class="container">
+
+		<div class="row">
+			<% @houses.each do |house| %>
+				
+					<div class="col-md-4 well house-card">
+						<h2>
+						<%= link_to house do %>
+							<%=house.name%>
+						<% end %>
+							<!-- <div id="edit-house-div"> -->
+								<button class="btn btn-default edit-house" data-toggle="modal" data-target="#edit-house-<%=house.id%>">
+									<span class="glyphicon glyphicon-pencil"></span>
+									<span class="sr-only">Edit House <%=house.name%></span>
+								</button>
+							<!-- </div> -->
+						</h2>
+						<%= link_to house do %>
+							<div class="row">
+								<div class="col-md-5">
+									<% if house.photo_file_name %>
+										<%= image_tag(house.photo.url(:thumb), class: "img-circle", "aria-hidden": "true") %>
+									<% end %>
+								</div>
+								<div class="col-md-7">
+									<h3>Balance: <small>$<%=current_user.balance(house.id).round(2)%></small></h3>
+									
+								</div>
+								
+							</div>
+						<% end %>
+					</div>
+			<% end %>
+			
+		</div>
+
+	</div>
+
+	<%= render "new_house_modal" %>
+	<%= render "join_house_modal" %>
+	<%= render "edit_user_modal" %>
+	<%= render "edit_house_modal" %>
+</div>

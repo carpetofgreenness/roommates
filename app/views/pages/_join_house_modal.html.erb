@@ -1,0 +1,29 @@
+	<div class="modal fade" id="join-house" tabindex="-1" role="dialog" aria-labelledby="new-home" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">New House</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        	<p>To join an exiting house, the house creator must give you a <strong>House Id Number</strong> and a <strong>Join Key</strong></p>
+		      <%= form_for @membership, :html => { :id => "new_house", :class => "form-group"} do |f| %>
+		      	<div class="form-group">
+					<label for="house_id" class="form-control-label">House Id Number</label>
+					<%= f.number_field 'house_id', class: "form-control", placeholder: "House name", step: 1, min: 1 %>
+		      	</div>
+		      	<div class="form-group">
+					<label for="join_key" class="form-control-label">Join Key</label>
+					<%= text_field_tag 'join_key', nil, placeholder: "Join key", class: "form-control" %>
+		      	</div>
+		      	<%= f.hidden_field 'user_id', value: current_user.id %>
+	      </div>
+	      <div class="modal-footer">
+	      		<%= f.submit 'Join House', class: "btn btn-primary" %>
+	        <% end %>
+	      </div>
+	    </div>
+	  </div>
+	</div>

@@ -17,6 +17,7 @@
     <div class="container container-full">
   
       <p class="notice"><%= @notice %></p>
+      <%= flash[:notice] %>
       <% if @alert %>
         <p class="alert alert-danger"><%= @alert %></p>
       <% end %>

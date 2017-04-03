@@ -27,6 +27,20 @@ class HousesController < ApplicationController
 		end
 	end
 
+	def update
+		@house = House.find(params[:id])
+		@house.update_attributes(house_params)
+
+		if @house.save
+			flash[:notice] = "Your house was created successfully"
+			redirect_to @house
+		else
+			flash[:alert] = "There was a problem saving your house."
+			redirect_to @house
+		end
+
+	end
+
 	private
 
 	def house_params

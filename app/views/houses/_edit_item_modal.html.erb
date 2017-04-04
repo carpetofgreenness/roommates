@@ -3,13 +3,13 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Edit Transaction <%=transaction.name%></h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Edit <%= transaction.shared ? 'Shared' : 'Repayment'%> Transaction: <%=transaction.name%></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        
+	        <% if transaction.shared %>
 		      <%= form_for transaction, :html => { :id => "edit_item_#{transaction.id}", :class => "form-group"} do |f| %>
 		      	<div class="form-group">
 					<label for="name" class="form-control-label">Name</label>
@@ -41,12 +41,45 @@
 		      	<%= f.hidden_field 'house_id', value: @house.id %>
 		      	<%= hidden_field_tag 'item_id', transaction.id %>
 
-	      </div>
-	      <div class="modal-footer">
 	      		<!-- <%= f.submit 'Edit Transaction', class: "btn btn-primary modal-button" %> -->
 	      		<!-- <button type="submit" class="btn btn-primary" data-dismiss="modal" id="modal-close-submit">Update Item</button> -->
 	      		<button type="button" class="btn btn-primary" onClick="document.getElementById('edit_item_<%=transaction.id%>').submit();">Submit</button>
-	        <% end %>
+	          <% end %>
+	         <% else %>
+	         	<%= form_for transaction, :html => { :id => "new_item", :class => "form-group"} do |f| %>
+			            <div class="form-group">
+							<label for="name" class="form-control-label">Name</label>
+							<%= f.text_field 'name', class: "form-control", placeholder: "What did you pay for?" %>
+				      	</div>
+				      	<div class="form-group">
+							<label for="amount" class="form-control-label">Amount</label>
+							<%= f.number_field 'amount', class: "form-control", :onchange => "setTwoNumberDecimal(this)", :step => 0.01, placeholder: "0.00" %>
+				      	</div>
+				      	<div class="form-group">
+				      		<label for="purchased" class="form-control-label">Date</label>
+				      		<%= f.date_field 'purchased', class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
+				      	</div>
+				      	<div class="form-group">
+							<label for="description" class="form-control-label">Description</label>
+							<%= f.text_area 'description', class: "form-control", placeholder: "Description of transaction" %>
+				      	</div>
+
+				      	<div class="form-group">
+
+				      		<label class="form-control-label">Charge to:  </label>
+				      		<% current_user.roommates(@house.id).each do |roommate| %>
+				      			<label for=<%=roommate.email%> class="custom-control custom-radio">
+				      				<%= radio_button_tag 'accomplice', roommate.id, true , class:"custom-control-input" %>
+				      				<span class="custom-control-indicator"></span>
+							 		<span class="custom-control-description"><%=roommate.first_name%></span>
+				      			</label>
+				      		<% end %>
+				      	</div>
+				      	<%= f.hidden_field 'shared', value: false %>
+				      	<%= f.hidden_field 'house_id', value: @house.id %>
+				      	<%= f.submit 'Create Transaction', class: "btn btn-primary" %>
+		        	<% end %>
+		        <% end %>
 	      </div>
 	    </div>
 	  </div>

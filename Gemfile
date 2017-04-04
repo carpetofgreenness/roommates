@@ -9,6 +9,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'faker'
 gem 'paperclip'
+gem 'jquery-turbolinks'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'

@@ -15,7 +15,7 @@
 				<h2>
 					Balance:
 					<small>
-						<%=current_user.balance(@house.id)%>
+						<%=current_user.balance(@house.id).round(2)%>
 					</small>
 				</h2>
 				<h2>Members</h2>
@@ -85,7 +85,7 @@
 								<%=transaction.name%>
 							</div>
 							<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
-								<%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount : 0%>
+								<%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount.round(2) : 0%>
 							</div>
 						</div>
 						<div class="item-info" id=<%=transaction.id%>>

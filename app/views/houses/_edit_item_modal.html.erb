@@ -10,7 +10,7 @@
 	      </div>
 	      <div class="modal-body">
 	        
-		      <%= form_for transaction, :html => { :id => "new_item", :class => "form-group"} do |f| %>
+		      <%= form_for transaction, :html => { :id => "edit_item_#{transaction.id}", :class => "form-group"} do |f| %>
 		      	<div class="form-group">
 					<label for="name" class="form-control-label">Name</label>
 					<%= f.text_field 'name', class: "form-control" %>
@@ -43,7 +43,9 @@
 
 	      </div>
 	      <div class="modal-footer">
-	      		<%= f.submit 'Edit Transaction', class: "btn btn-primary" %>
+	      		<!-- <%= f.submit 'Edit Transaction', class: "btn btn-primary modal-button" %> -->
+	      		<!-- <button type="submit" class="btn btn-primary" data-dismiss="modal" id="modal-close-submit">Update Item</button> -->
+	      		<button type="button" class="btn btn-primary" onClick="document.getElementById('edit_item_<%=transaction.id%>').submit();">Submit</button>
 	        <% end %>
 	      </div>
 	    </div>

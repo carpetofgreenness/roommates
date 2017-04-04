@@ -35,7 +35,9 @@
 		      	</div>
 	      </div>
 	      <div class="modal-footer">
-	      		<%= f.submit 'Update House', class: "btn btn-primary" %>
+<!-- 	      		<%= f.submit 'Update House', class: "btn btn-primary" %> -->
+					<!-- <button type="submit" class="btn btn-default modal-button" data-dismiss="modal">Update House</button> -->
+					<button type="button" class="btn btn-primary" onClick="document.getElementById('edit_house').submit();">Submit</button>
 	        <% end %>
 	      </div>
 	    </div>

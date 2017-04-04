@@ -25,6 +25,8 @@ document.addEventListener("turbolinks:load", function() {
 	$("#share").click(function(event){
 		event.stopPropagation();
 	})
+
+	$("#myTab li:eq(0) a").tab('show');
 })
 
 // $("document").on('turbolinks:load',function(){

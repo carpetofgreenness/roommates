@@ -10,7 +10,7 @@
 	      </div>
 	      <div class="modal-body">
 	        
-		      <%= form_for house, :html => { :id => "edit_house", :class => "form-group"} do |f| %>
+		      <%= form_for house, :html => { :id => "edit_house_#{house.id}", :class => "form-group"} do |f| %>
 		      	<div class="form-group">
 					<label for="name" class="form-control-label">Name</label>
 					<%= f.text_field 'name', class: "form-control", value: house.name %>
@@ -35,7 +35,9 @@
 		      	</div>
 	      </div>
 	      <div class="modal-footer">
-	      		<%= f.submit 'Update House', class: "btn btn-primary" %>
+<!-- 	      		<%= f.submit 'Update House', class: "btn btn-primary" %> -->
+					<!-- <button type="submit" class="btn btn-default modal-button" data-dismiss="modal">Update House</button> -->
+					<button type="button" class="btn btn-primary" onClick="document.getElementById('edit_house_<%=house.id%>').submit();">Submit</button>
 	        <% end %>
 	      </div>
 	    </div>

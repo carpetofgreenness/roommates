@@ -32,11 +32,11 @@ class HousesController < ApplicationController
 		@house.update_attributes(house_params)
 
 		if @house.save
-			flash[:notice] = "Your house was created successfully"
+			flash[:notice] = "Your house was updated successfully"
 			redirect_to @house
 		else
-			flash[:alert] = "There was a problem saving your house."
-			redirect_to @house
+			flash[:alert] = "There was a problem updating your house."
+			redirect_to :back
 		end
 
 	end

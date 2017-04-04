@@ -46,7 +46,7 @@
 										</button>
 									</form>
 								</span>
-							<% elsif transaction.find_share_of(current_user.id) %>
+							<% elsif transaction.find_share_of(current_user.id) && transaction.shared %>
 								<span class="badge badge-unshare" id=<%=transaction.id%>>
 								<form action="/shares/<%=transaction.find_share_of(current_user.id).id%>">
 									<button id="unshare" type="submit">
@@ -57,7 +57,7 @@
 									
 								</form>
 								</span>
-							<% else %>
+							<% elsif transaction.shared %>
 								<span class="badge badge-share" id=<%=transaction.id%>>
 								<%= form_for Share.new do |f|%>
 									<button id="share" type="submit">
@@ -68,6 +68,15 @@
 									<%= f.hidden_field 'user_id', value: current_user.id %>
 									<%= f.hidden_field 'item_id', value: transaction.id %>
 								<% end %>
+								</span>
+							<% else %>
+								<span class="badge badge-trash" id=<%=transaction.id%>>
+									<form action="/items/<%=transaction.id%>">
+										<button id="delete-item" type="submit">
+											<span class="glyphicon glyphicon-trash" id=<%=transaction.id%>></span>
+											<span class="sr-only">Delete Transaction <%=transaction.name%></span>
+										</button>
+									</form>
 								</span>
 							<% end %>
 						<!-- </span> -->

@@ -4,8 +4,12 @@ class ItemsController < ApplicationController
 		@item = current_user.items.create(item_params)
 		@item.shares.first.update_attribute("owner", true)
 
-		params[:sharers].each do |sharer|
-			User.find(sharer).shares.create(item_id: @item.id, owner: false)
+		if @item.shared
+			params[:sharers].each do |sharer|
+				User.find(sharer).shares.create(item_id: @item.id, owner: false)
+			end
+		else
+			User.find(params[:accomplice]).shares.create(item_id: @item.id, owner: false)
 		end
 
 		if @item.save

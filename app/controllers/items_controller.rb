@@ -2,21 +2,21 @@ class ItemsController < ApplicationController
 
 	def create
 		@item = current_user.items.create(item_params)
-		@item.shares.first.update_attribute("owner", true)
-
-		if @item.shared
-			params[:sharers].each do |sharer|
-				User.find(sharer).shares.create(item_id: @item.id, owner: false)
-			end
-		else
-			User.find(params[:accomplice]).shares.create(item_id: @item.id, owner: false)
-		end
 
 		if @item.save
+			@item.shares.first.update_attribute("owner", true)
+
+			if @item.shared
+				params[:sharers].each do |sharer|
+					User.find(sharer).shares.create(item_id: @item.id, owner: false)
+				end
+			else
+				User.find(params[:accomplice]).shares.create(item_id: @item.id, owner: false)
+			end
 			flash[:notice] = "Your transaction was created successfully"
 			redirect_to @item.house
 		else
-			flash[:alert] = "There was a problem saving your transaction."
+			flash[:notice] = "There was a problem saving your transaction."
 			redirect_to @item.house
 		end
 	end

@@ -17,15 +17,15 @@
 		        <div id="sectionA" class="tab-pane fade in active">
 	      			<%= form_for @item, :html => { :id => "new_item", :class => "form-group"} do |f| %>
 				      	<div class="form-group">
-							<label for="name" class="form-control-label">Name</label>
+							<label for="name" class="form-control-label">Name*</label>
 							<%= f.text_field 'name', class: "form-control", placeholder: "What did you pay for?" %>
 				      	</div>
 				      	<div class="form-group">
-							<label for="amount" class="form-control-label">Amount</label>
+							<label for="amount" class="form-control-label">Amount*</label>
 							<%= f.number_field 'amount', class: "form-control", :onchange => "setTwoNumberDecimal(this)", :step => 0.01, placeholder: "0.00" %>
 				      	</div>
 				      	<div class="form-group">
-				      		<label for="purchased" class="form-control-label">Date</label>
+				      		<label for="purchased" class="form-control-label">Date*</label>
 				      		<%= f.date_field 'purchased', class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
 				      	</div>
 				      	<div class="form-group">
@@ -51,15 +51,15 @@
 		        <div id="sectionB" class="tab-pane fade">
 		        	<%= form_for @item, :html => { :id => "new_item", :class => "form-group"} do |f| %>
 			            <div class="form-group">
-							<label for="name" class="form-control-label">Name</label>
+							<label for="name" class="form-control-label">Name*</label>
 							<%= f.text_field 'name', class: "form-control", placeholder: "What did you pay for?" %>
 				      	</div>
 				      	<div class="form-group">
-							<label for="amount" class="form-control-label">Amount</label>
+							<label for="amount" class="form-control-label">Amount*</label>
 							<%= f.number_field 'amount', class: "form-control", :onchange => "setTwoNumberDecimal(this)", :step => 0.01, placeholder: "0.00" %>
 				      	</div>
 				      	<div class="form-group">
-				      		<label for="purchased" class="form-control-label">Date</label>
+				      		<label for="purchased" class="form-control-label">Date*</label>
 				      		<%= f.date_field 'purchased', class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
 				      	</div>
 				      	<div class="form-group">

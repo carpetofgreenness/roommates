@@ -3,6 +3,8 @@ class Item < ApplicationRecord
 	has_many :users, through: :shares
 	belongs_to :house
 
+	validates_presence_of :name, :amount, :shared, :purchased, :house_id
+
 
 	def find_share_of(user_id)
 		self.shares.where("user_id=?",user_id).first
@@ -12,10 +14,19 @@ class Item < ApplicationRecord
 		self.shares.where("owner=?",true).first.user
 	end
 
-	def split_with(user_email)
+	# def split_with(user_email)
+	# 	if self.shares.count > 1
+	# 		p self.shares.count
+	# 		everyone = self.shares.map(&:user).map(&:first_name - [user_email]
+	# 		everyone.join(', ')
+	# 	end
+	# end
+
+	def split_with(user_id)
 		if self.shares.count > 1
+			user = User.find(user_id)
 			p self.shares.count
-			everyone = self.shares.map(&:user).map(&:email) - [user_email]
+			everyone = self.shares.map(&:user).map(&:first_name) - [user.first_name]
 			everyone.join(', ')
 		end
 	end

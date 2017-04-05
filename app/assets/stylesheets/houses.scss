@@ -82,6 +82,7 @@ button#edit, button#unshare, button#share, button#delete-item {
 
 .transaction-container {
 	border: 2px solid $gray;
+	margin-bottom: 1em;
 	// box-shadow: 1px 3px 20px $gray !important;
 }
 
@@ -106,4 +107,8 @@ button#edit, button#unshare, button#share, button#delete-item {
 	   bottom: 20px;
 	   width: 100%; 
 	}
+}
+
+ul.list-group {
+	margin-bottom: 0 !important;
 }

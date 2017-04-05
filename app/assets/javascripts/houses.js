@@ -27,6 +27,10 @@ document.addEventListener("turbolinks:load", function() {
 	})
 
 	$("#myTab li:eq(0) a").tab('show');
+
+	if ($('#error-section').length > 0) {
+		$("new_item").modal('toggle');
+	}
 })
 
 // $("document").on('turbolinks:load',function(){

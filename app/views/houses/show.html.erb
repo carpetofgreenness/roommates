@@ -19,16 +19,24 @@
 					</small>
 				</h2>
 				<h2>Members</h2>
-				<%= @members.map(&:email).join(', ') %>	
+				<%= @members.map(&:first_name).join(', ') %>	
 			</div>
 		</div>
 	</div>
+
+	<% if @item.errors.full_messages.any? %>
+	  <ul>
+	    <% @item.errors.full_messages.each do |error_message| %>
+	      <li><%= error_message %></li> <br />
+	    <% end %>
+	  </ul>
+	<% end %>
 
 	<h2>Transactions</h2>
 	<!-- <div class="container"> -->
 		<ul class="list-group row">
 			<div class="col-md-12">
-				<% @transactions.each do |transaction| %>
+				<% @transactions.each.with_index do |transaction, index| %>
 					<a class="list-group-item row item-area" id=<%=transaction.id%>>
 						<!-- <span class="badge" id=<%=transaction.id%>> -->
 							<% if current_user.owns(transaction.id) %>
@@ -117,6 +125,10 @@
 							</div>
 						</div>
 					</a>
+
+					<% if index<@transactions.length-1 && transaction.purchased.strftime('%b') != @transactions[index+1].purchased.strftime('%b') && index > 0  %> 
+					<li class="list-group-item row month-row">Begin <%=@transactions[index+1].purchased.strftime('%B')%></li>
+					<% end %>
 				<% end %>
 				
 			</div>

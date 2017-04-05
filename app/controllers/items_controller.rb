@@ -17,8 +17,11 @@ class ItemsController < ApplicationController
 			redirect_to @item.house
 		else
 			flash[:notice] = "There was a problem saving your transaction."
-			redirect_to @item.house
+			redirect_to House.find(item_params[:house_id])
 		end
+	end
+
+	def new
 	end
 
 	def update

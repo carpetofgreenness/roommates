@@ -79,3 +79,31 @@ button#edit, button#unshare, button#share, button#delete-item {
 	font-weight: bold;
 	color: white;
 }
+
+.transaction-container {
+	border: 2px solid $gray;
+	// box-shadow: 1px 3px 20px $gray !important;
+}
+
+.members-div {
+	text-align: right;
+
+	.title {
+		text-align: center;
+	}
+}
+
+.member-div {
+	display: inline-block;
+
+	img { 
+  	   position: relative; 
+	   width: 100%; /* for IE 6 */
+	}
+
+	h2 { 
+	   position: relative;
+	   bottom: 20px;
+	   width: 100%; 
+	}
+}

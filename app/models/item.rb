@@ -23,11 +23,11 @@ class Item < ApplicationRecord
 	# end
 
 	def split_with(user_id)
-		if self.shares.count > 1
+		if self.shares.count
 			user = User.find(user_id)
 			p self.shares.count
 			everyone = self.shares.map(&:user).map(&:first_name) - [user.first_name]
-			everyone.join(', ')
+			everyone.join(', ') if everyone
 		end
 	end
 

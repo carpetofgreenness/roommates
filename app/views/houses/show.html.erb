@@ -108,8 +108,8 @@
 								<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
 									<%=transaction.name%>
 								</div>
-								<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
-									<%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount.round(2) : 0%>
+								<div class="col-md-4 col-sm-3 col-xs-4 cost" id=<%=transaction.id%>>
+									<strong><%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount.round(2) : 0%></strong>
 								</div>
 							</div>
 							<div class="item-info" id=<%=transaction.id%>>

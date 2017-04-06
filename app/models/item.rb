@@ -3,7 +3,7 @@ class Item < ApplicationRecord
 	has_many :users, through: :shares
 	belongs_to :house
 
-	validates_presence_of :name, :amount, :shared, :purchased, :house_id
+	# validates_presence_of :name, :amount, :shared, :purchased, :house_id
 
 
 	def find_share_of(user_id)

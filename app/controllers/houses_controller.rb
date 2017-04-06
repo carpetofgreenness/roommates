@@ -6,7 +6,7 @@ class HousesController < ApplicationController
 		if current_user && current_user.houses.includes(@house)
 			@permission = true
 			@members = @house.users
-			@transactions = @house.items
+			@transactions = @house.items.order(purchased: :desc)
 			@membership = @house.memberships.where("user_id=?",current_user.id).first
 			@item = Item.new
 		else

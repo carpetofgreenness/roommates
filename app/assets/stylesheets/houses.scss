@@ -20,8 +20,8 @@ button.plus-sign {
 	z-index: 100;
 	font-size: 4em;	
 	background-color: white;
-	height: 57px;
-	width: 57px;
+	height: 80px;
+	width: 81px;
 	border-radius: 55px;
 	padding: 0;
 
@@ -36,7 +36,7 @@ button.plus-sign {
 
 span.glyphicon-plus-sign {
 	position: relative;
-	top: -4px;
+	top: -6px;
 	left: -1px;
 
 	&:focus {
@@ -72,3 +72,47 @@ button#edit, button#unshare, button#share, button#delete-item {
 .nav.nav-tabs {
 	font-size: 1.5em;
 }
+
+.month-row {
+	text-align: center;
+	background-color: $brand-primary !important;
+	font-weight: bold;
+	color: white;
+}
+
+.transaction-container {
+	border: 2px solid $gray;
+	margin-bottom: 1em;
+	// box-shadow: 1px 3px 20px $gray !important;
+}
+
+.members-div {
+	text-align: right;
+
+	.title {
+		text-align: center;
+	}
+}
+
+.member-div {
+	display: inline-block;
+
+	img { 
+  	   position: relative; 
+	   width: 100%; /* for IE 6 */
+	}
+
+	h2 { 
+	   position: relative;
+	   bottom: 20px;
+	   width: 100%; 
+	}
+}
+
+ul.list-group {
+	margin-bottom: 0 !important;
+}
+
+// .cost {
+// 	text-align: right;
+// }

@@ -28,6 +28,11 @@
 				    <%= f.file_field :photo, class: "form-control" %>
 		      	</div>
 
+<!-- 		      	<div class="form-group">
+		      		<label for="rent" class="form-control-label">Rent</label><br>
+		      		<%= number_field_tag :rent, class: "form-control", :onchange => "setTwoNumberDecimal(this)", :step => 0.01, placeholder: "0.00" %>
+		      	</div> -->
+
 		      	<div class="form-group">
 					<label for="join_key" class="form-control-label">Join Key <small>password for other users to join your house</small></label>
 					<%= f.text_field 'join_key', class: "form-control", placeholder: "Join key" %>

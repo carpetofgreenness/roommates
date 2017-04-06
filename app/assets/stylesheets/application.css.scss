@@ -24,3 +24,29 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap";
 .container-full {
 	padding-top: 60px;
 }
+
+body {
+	background-color: $gray-lighter;
+	font-size: 2em;
+}
+
+#transactions-title {
+	text-align: center;
+}
+
+hr {
+	border-color: $gray-light;
+	 border: 0;
+	 height: 1px;
+	 background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+}
+
+.navbar-default .navbar-nav > li > a {
+	padding: 20px;
+
+}
+
+.navbar-default .navbar-nav > li > a.navbar-brand {
+	padding-top: 10px;
+	padding-right: 5px;
+} 

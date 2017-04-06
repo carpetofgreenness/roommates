@@ -1,7 +1,10 @@
 <% if @permission %>
 	<div class="well well-lg">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
+				<%= image_tag(@house.photo.url(:medium), class: "img-circle", "aria-hidden": "true")%>
+			</div>
+			<div class="col-md-4">
 				<h1>
 					<%=@house.name%>
 					<br>
@@ -11,102 +14,149 @@
 				</h1>
 				<p><%=@house.description%></p>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<h2>
 					Balance:
 					<small>
-						<%=current_user.balance(@house.id)%>
+						<%=current_user.balance(@house.id).round(2)%>
 					</small>
 				</h2>
-				<h2>Members</h2>
-				<%= @members.map(&:email).join(', ') %>	
+			</div>
+			<div class="col-md-8 members-div">
+				
+				<!-- <h2 class="title">Members</h2> -->
+				<% @members.each do |member| %>
+					<div class="member-div">
+						<%= image_tag(member.avatar.url(:thumb), class: "img-circle", "aria-hidden": "true")%>
+						<h3>
+							<%= member.first_name %>
+						</h3>
+					</div>
+				<% end %>	
 			</div>
 		</div>
 	</div>
 
-	<h2>Transactions</h2>
-	<!-- <div class="container"> -->
+	<% if @item.errors.full_messages.any? %>
+	  <ul>
+	    <% @item.errors.full_messages.each do |error_message| %>
+	      <li><%= error_message %></li> <br />
+	    <% end %>
+	  </ul>
+	<% end %>
+
+	<h2 id="transactions-title">Transactions</h2>
+	<div class="container transaction-container">
 		<ul class="list-group row">
 			<div class="col-md-12">
-				<% @transactions.each do |transaction| %>
-					<a class="list-group-item row item-area" id=<%=transaction.id%>>
-						<!-- <span class="badge" id=<%=transaction.id%>> -->
-							<% if current_user.owns(transaction.id) %>
-								<span class="badge badge-edit" id=<%=transaction.id%>>
-								<button id="edit" data-toggle="modal" data-target="#edit-item-<%=transaction.id%>">
-									<span class="glyphicon glyphicon-pencil" id=<%=transaction.id%>></span>
-									<span class="sr-only">Edit Transaction <%=transaction.name%></span>
-								</button>
-								</span>
-								<span class="badge badge-trash" id=<%=transaction.id%>>
-									<form action="/items/<%=transaction.id%>">
-										<button id="delete-item" type="submit">
-											<span class="glyphicon glyphicon-trash" id=<%=transaction.id%>></span>
-											<span class="sr-only">Delete Transaction <%=transaction.name%></span>
+				<!-- <li class="list-group-item row month-row">Transactions</li> -->
+				<% @transactions.each.with_index do |transaction, index| %>
+				<!-- check in case it is a repayment that user isn't involved in -->
+					<% if transaction.shared || transaction.find_share_of(current_user.id)%> 
+						<a class="list-group-item row item-area" id=<%=transaction.id%>>
+							<!-- <span class="badge" id=<%=transaction.id%>> -->
+								<% if current_user.owns(transaction.id) %>
+									<span class="badge badge-edit" id=<%=transaction.id%>>
+									<button id="edit" data-toggle="modal" data-target="#edit-item-<%=transaction.id%>">
+										<span class="glyphicon glyphicon-pencil" id=<%=transaction.id%>></span>
+										<span class="sr-only">Edit Transaction <%=transaction.name%></span>
+									</button>
+									</span>
+									<span class="badge badge-trash" id=<%=transaction.id%>>
+										<form action="/items/<%=transaction.id%>">
+											<button id="delete-item" type="submit">
+												<span class="glyphicon glyphicon-trash" id=<%=transaction.id%>></span>
+												<span class="sr-only">Delete Transaction <%=transaction.name%></span>
+											</button>
+										</form>
+									</span>
+								<% elsif transaction.find_share_of(current_user.id) && transaction.shared %>
+									<span class="badge badge-unshare" id=<%=transaction.id%>>
+									<form action="/shares/<%=transaction.find_share_of(current_user.id).id%>">
+										<button id="unshare" type="submit">
+													<span class="glyphicon glyphicon-remove" id=<%=transaction.id%>></span>
+													<span class="sr-only">Unshare Transaction <%=transaction.name%></span>
+											
 										</button>
+										
 									</form>
-								</span>
-							<% elsif transaction.find_share_of(current_user.id) %>
-								<span class="badge badge-unshare" id=<%=transaction.id%>>
-								<form action="/shares/<%=transaction.find_share_of(current_user.id).id%>">
-									<button id="unshare" type="submit">
-												<span class="glyphicon glyphicon-remove" id=<%=transaction.id%>></span>
-												<span class="sr-only">Unshare Transaction <%=transaction.name%></span>
-										
-									</button>
-									
-								</form>
-								</span>
-							<% else %>
-								<span class="badge badge-share" id=<%=transaction.id%>>
-								<%= form_for Share.new do |f|%>
-									<button id="share" type="submit">
-												<span class="glyphicon glyphicon-ok" id=<%=transaction.id%>></span>
-												<span class="sr-only">Share Transaction <%=transaction.name%></span>
-										
-									</button>
-									<%= f.hidden_field 'user_id', value: current_user.id %>
-									<%= f.hidden_field 'item_id', value: transaction.id %>
-								<% end %>
-								</span>
-							<% end %>
-						<!-- </span> -->
-						<div class="col-sm-8 row" id=<%=transaction.id%>>
-							<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
-								<%=transaction.name%>
-							</div>
-							<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
-								<%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount : 0%>
-							</div>
-						</div>
-						<div class="item-info" id=<%=transaction.id%>>
-							<br><hr>
-							<div class="col-xs-8 row" id=<%=transaction.id%>>
-								<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
-									<p id=<%=transaction.id%>>Purchased by</p>
-									<p id=<%=transaction.id%>><%=transaction.owner.email%></p>
-								</div>
-								<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
-									<p id=<%=transaction.id%>>Total:</p>
-									<p id=<%=transaction.id%>><%=transaction.amount%></p>
-								</div>
-							</div>
-							<div class="col-xs-4" id=<%=transaction.id%>>
-								<% if transaction.split_with?(current_user.id) %>
-									<p id=<%=transaction.id%>>You are splitting this with <%=transaction.shares.count-1%> other people:</p>
+									</span>
+								<% elsif transaction.shared %>
+									<span class="badge badge-share" id=<%=transaction.id%>>
+									<%= form_for Share.new do |f|%>
+										<button id="share" type="submit">
+													<span class="glyphicon glyphicon-ok" id=<%=transaction.id%>></span>
+													<span class="sr-only">Share Transaction <%=transaction.name%></span>
+											
+										</button>
+										<%= f.hidden_field 'user_id', value: current_user.id %>
+										<%= f.hidden_field 'item_id', value: transaction.id %>
+									<% end %>
+									</span>
 								<% else %>
-									<p id=<%=transaction.id%>>Split among <%=transaction.shares.count%> other people:</p>
+									<span class="badge badge-trash" id=<%=transaction.id%>>
+										<form action="/items/<%=transaction.id%>">
+											<button id="delete-item" type="submit">
+												<span class="glyphicon glyphicon-trash" id=<%=transaction.id%>></span>
+												<span class="sr-only">Delete Transaction <%=transaction.name%></span>
+											</button>
+										</form>
+									</span>
 								<% end %>
-								<p id=<%=transaction.id%>><%=transaction.split_with(current_user.email)%></p>
+							<!-- </span> -->
+							<div class="col-sm-8 row" id=<%=transaction.id%>>
+								<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
+									<%=transaction.name%>
+								</div>
+								<div class="col-md-4 col-sm-3 col-xs-4 cost" id=<%=transaction.id%>>
+									<strong><%=transaction.find_share_of(current_user.id)? transaction.find_share_of(current_user.id).amount.round(2) : 0%></strong>
+								</div>
 							</div>
-						</div>
-					</a>
+							<div class="item-info" id=<%=transaction.id%>>
+								<br><hr>
+								<div class="col-xs-8 row" id=<%=transaction.id%>>
+									<div class="col-md-8 col-sm-9 col-xs-6" id=<%=transaction.id%>>
+										<p id=<%=transaction.id%>>Purchased by <%=transaction.owner.first_name%> on <%=transaction.purchased.strftime("%B %d, %Y")%></p>
+									</div>
+									<div class="col-md-4 col-sm-3 col-xs-4" id=<%=transaction.id%>>
+										<p id=<%=transaction.id%>>Total:</p>
+										<p id=<%=transaction.id%>><%=transaction.amount%></p>
+									</div>
+								</div>
+								<div class="col-xs-4" id=<%=transaction.id%>>
+									<% if transaction.shared %>
+										<% if transaction.split_with?(current_user.id) %>
+											<p id=<%=transaction.id%>>You are splitting this with <%=transaction.shares.count-1%> other people:</p>
+										<% else %>
+											<p id=<%=transaction.id%>>These roommates are splitting this cost:</p>
+										<% end %>
+										<p id=<%=transaction.id%>><%=transaction.split_with(current_user.id)%></p>
+									<% else %>
+										<% if transaction.find_share_of(current_user.id) && transaction.find_share_of(current_user.id).owner %>
+											<p><%=transaction.split_with(current_user.id)%> paying you back</p>
+										<% else %>
+											<p>Paying back <%=transaction.split_with(current_user.id)%></p>
+										<% end %>
+									<% end %>
+								</div>
+								<% if transaction.description.length > 0 %>
+									<div class="col-xs-8 row" id=<%=transaction.id%>><div class="col-xs-12" id=<%=transaction.id%>>
+										<p id=<%=transaction.id%>><strong>Description:</strong> <%=transaction.description%></p>
+									</div></div>
+								<% end %>
+							</div>
+						</a>
+					<% end %>
+
+					<% if index<@transactions.length-1 && transaction.purchased.strftime('%b') != @transactions[index+1].purchased.strftime('%b') && index > 0  %> 
+					<li class="list-group-item row month-row">Begin <%=@transactions[index+1].purchased.strftime('%B')%></li>
+					<% end %>
 				<% end %>
 				
 			</div>
 		</ul>
 		
-	<!-- </div> -->
+	</div>
 	<button class="plus-sign" data-toggle="modal" data-target="#new-item">
 		<span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
 		</span>

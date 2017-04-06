@@ -20,10 +20,4 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-production:
-  <<: *default
-   adapter: postgresql
-   encoding: unicode
-   database: myapp
-   username: username
-   password: ENV['DB_PASSWORD']
+production:   <<: *default   adapter: postgresql   encoding: unicode   database: myapp   username: username   password: ENV['DB_PASSWORD'

@@ -8,10 +8,30 @@
 
 u=[]
 
-u[0] = User.create("email":"hannah@house.com","password":"000000")
-u[1] = User.create("email":"marine@house.com","password":"000000")
-u[2] = User.create("email":"ankur@house.com","password":"000000")
-u[3] = User.create("email":"brittany@house.com","password":"000000")
+u[0] = User.create(
+		"email":"hannah@house.com",
+		"password":"000000",
+		first_name: "Hannah",
+		last_name: "Weinstein"
+	)
+u[1] = User.create(
+	"email":"marine@house.com",
+	"password":"000000",
+	"first_name": "Marine",
+	"last_name": "Kambara"
+)
+u[2] = User.create(
+	"email":"ankur@house.com",
+	"password":"000000",
+	"first_name": "Ankur",
+	"last_name": "Saxena"
+)
+u[3] = User.create(
+	"email":"brittany@house.com",
+	"password":"000000",
+	"first_name": "Brittany",
+	"last_name": "Murray"
+)
 
 User.first.houses.create("name":"The Dumpling","description":"our house, in the middle of the street","rent_start":"2017-04-01")
 User.first.memberships.first.update_attributes("rent":-1300,"rent_pays_to":true)
@@ -27,7 +47,7 @@ User.all.each do |user|
 			"amount":Faker::Commerce.price,
 			"description":Faker::Commerce.department,
 			"shared":true,
-			"purchased":Faker::Time.between(5.days.ago, Date.today, :all),
+			"purchased":Faker::Time.between(2.months.ago, Date.today, :all),
 			"house_id":1
 		)
 		users.each do |sharer|
@@ -38,4 +58,28 @@ User.all.each do |user|
 		end
 		user.shares.where("item_id=?",t.id).first.update_attribute("owner",true)
 	end
+
+	5.times do |t|
+		users = User.all - [user]
+		t = user.items.create(
+			"name":Faker::Commerce.product_name,
+			"amount":Faker::Commerce.price,
+			"description":Faker::Commerce.department,
+			"shared":false,
+			"purchased":Faker::Time.between(2.months.ago, Date.today, :all),
+			"house_id":1
+		)
+		sharer = users.sample
+		t.shares.create(
+			"user_id":sharer.id,
+			"owner":false
+		)
+		t.shares.create(
+			"user_id":user.id
+			"owner":true
+		)
+		end
+		user.shares.where("item_id=?",t.id).first.update_attribute("owner",true)
+	end
+
 end

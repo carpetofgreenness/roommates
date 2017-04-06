@@ -78,7 +78,6 @@ User.all.each do |user|
 			"user_id":user.id,
 			"owner":true
 		)
-		end
 		user.shares.where("item_id=?",t.id).first.update_attribute("owner",true)
 	end
 

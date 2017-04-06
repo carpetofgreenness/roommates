@@ -75,7 +75,7 @@ User.all.each do |user|
 			"owner":false
 		)
 		t.shares.create(
-			"user_id":user.id
+			"user_id":user.id,
 			"owner":true
 		)
 		end
